@@ -5,5 +5,13 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/workspace
+      - node_modules:/workspace/node_modules
+      - pnpm-store:/workspace/.pnpm-store
+      - .nuxt:/workspace/.nuxt
     command: sh -c "while sleep 1000; do :; done"
     tty: true
+
+volumes:
+  node_modules:
+  pnpm-store:
+  .nuxt:
