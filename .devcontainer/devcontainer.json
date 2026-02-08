@@ -8,7 +8,8 @@
 			"extensions": [
 				"Vue.volar",
 				"dbaeumer.vscode-eslint",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"joshbolduc.story-explorer"
 			]
 		}
 	}

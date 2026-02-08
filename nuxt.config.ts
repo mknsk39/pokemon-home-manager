@@ -16,6 +16,7 @@ export default defineNuxtConfig({
       })
     },
     '@nuxt/eslint',
+    ...(process.env.NUXT_STORYBOOK === '1' ? ['@nuxtjs/storybook'] : []),
   ],
   vite: {
     vue: {
