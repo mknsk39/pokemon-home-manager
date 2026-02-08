@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"command": "pnpm run dev",
+			"label": "pnpm: dev",
+			"detail": "nuxt dev"
+		},
+		{
+			"type": "shell",
+			"command": "pnpm run storybook",
+			"label": "pnpm: storybook",
+			"detail": "storybook dev"
+		},
+		{
+			"type": "shell",
+			"command": "pnpm run test",
+			"label": "pnpm: test",
+			"detail": "vitest"
+		}
+	]
+}

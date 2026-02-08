@@ -1,0 +1,16 @@
+{
+	"name": "Pokemon Home Manager Dev",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"Vue.volar",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"joshbolduc.story-explorer"
+			]
+		}
+	}
+}

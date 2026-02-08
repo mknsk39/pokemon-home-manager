@@ -1,0 +1,21 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+      - pnpm-store:/workspace/.pnpm-store
+      - .nuxt:/workspace/.nuxt
+    ports:
+      - "3000:3000"
+      - "24678:24678"
+      - "6006:6006"
+    command: sh -c "while sleep 1000; do :; done"
+    tty: true
+
+volumes:
+  node_modules:
+  pnpm-store:
+  .nuxt:

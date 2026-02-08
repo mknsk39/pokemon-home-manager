@@ -55,6 +55,7 @@ cd pokemon-home-manager
 | `npm run test` | Vitestでテストを実行 |
 | `npm run storybook` | Storybookを起動 |
 | `npm run lint` | ESLintでコードをチェック |
+| `npm run emulator` | Firebase Emulator Auth/Firestore を起動 |
 
 ## 🔥 Firebase Emulator
 
@@ -64,6 +65,12 @@ cd pokemon-home-manager
 # Firebase Emulator を起動
 npm run emulator
 ```
+
+### Firebase 設定
+
+1. `cp .env.example .env` で環境変数ファイルを用意し、各 `NUXT_PUBLIC_FIREBASE_*` と `USE_FIREBASE_EMULATOR`, `FIREBASE_EMULATOR_HOST`, `FIREBASE_AUTH_EMULATOR_PORT`, `FIRESTORE_EMULATOR_PORT` を実際の値（またはエミュレータ用の反映）で上書きします。
+2. `nuxt.config.ts` の `runtimeConfig.public.firebase` がこれらの値を読み込み、アプリ全体で Firebase を初期化します。
+3. `useFirebase()`, `useFirebaseAuth()`, `useFirebaseFirestore()` で Nuxt のコンポーネント/ユースケースから安全にサービスを取得してください（未初期化時はエラーを投げます）。
 
 ## 📚 ドキュメント
 
