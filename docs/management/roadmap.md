@@ -1,10 +1,10 @@
 # 開発ロードマップ
 
 ## Phase 1: プロジェクト基盤の構築
-- [ ] Docker Compose / DevContainer 設定
-- [ ] Nuxt3 + Vuetify3 初期セットアップ
-- [ ] Storybook 設定
-- [ ] Firebase 初期化
+- [x] Docker Compose / DevContainer 設定
+- [x] Nuxt3 + Vuetify3 初期セットアップ
+- [x] Storybook 設定
+- [x] Firebase 初期化（Firebase SDK + Nuxt プラグイン・コンポーザブルとエミュレータ設定）
 
 ## Phase 2: データ基盤と認証の実装
 - [ ] JSONマスターデータ層の実装
@@ -21,4 +21,3 @@
 ## Phase 5: PWA対応とXPの追求
 - [ ] PWA化
 - [ ] アニメーション統合・最適化
-

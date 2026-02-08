@@ -14,14 +14,16 @@
 
 ```text
 /
-├── components/ # Atomic Design (Atoms, Molecules, Organisms)
-├── composables/ # UIロジック
-├── constants/ # 静的JSON (Assets)
-├── docs/ # 構造化されたドキュメント
-├── domain/ # 純粋ビジネスロジック
-├── stores/ # Pinia
-├── tests/ # Vitest
-└── types/ # TypeScript型定義
+├── components/     # Atomic Design (Atoms, Molecules, Organisms)
+├── composables/    # UIロジック (Nuxt の hooks/composables)
+├── constants/      # 静的JSON (Assets)
+├── docs/           # 構造化されたドキュメント
+├── domain/         # 純粋ビジネスロジック
+├── plugins/        # Nuxt プラグイン
+├── services/       # Firebase などインフラ連携ロジック
+├── stores/         # Pinia
+├── tests/          # Vitest
+└── types/          # TypeScript型定義
 ```
 
 ## 📝 コーディングスタイル
