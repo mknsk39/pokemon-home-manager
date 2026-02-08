@@ -1,0 +1,9 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    command: sh -c "while sleep 1000; do :; done"
+    tty: true
