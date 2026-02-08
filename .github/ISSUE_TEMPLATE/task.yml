@@ -1,0 +1,23 @@
+name: 📋 Task
+description: 开发の中の小タスク
+title: "task: [概要]"
+labels: ["type: task 📋"]
+body:
+  - type: textarea
+    id: content
+    attributes:
+      label: 内容
+      placeholder: 具体的な作業内容を記載してください
+    validations:
+      required: true
+  - type: input
+    id: parent_issue
+    attributes:
+      label: 親Issue
+      description: 紐づく親Issue番号（例: #123）
+  - type: textarea
+    id: check_list
+    attributes:
+      label: 完了条件
+      placeholder: |
+        - [ ] 

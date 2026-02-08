@@ -1,0 +1,28 @@
+: Fixes #
+# <type>: Fixes #<issue-no> <summary>
+#
+# type:
+#   feat      機能変更 / 追加
+#   fix       バグ修正
+#   refactor  挙動を変えない構造改善
+#   chore     開発環境 / 設定変更
+#   docs      ドキュメント
+#
+# summary:
+#   何をしたかを簡潔に書く（1行・50文字目安）
+#
+# issue-no:
+#   紐づく子タスクIssue番号（Fixesで自動Close）
+#
+# ----------------------------
+# 例:
+# feat: Fixes #123 入力バリデーションを追加
+# fix: Fixes #234 並び順の不具合修正
+# chore: Fixes #345 ESLintルール追加
+#
+# NOTE:
+# - 子タスク（label: type: task）は「1コミット1Issue」&「1行で要約」推奨
+# - Fixes / Closes でコミット時にIssueを自動Close
+# - 親タスク（label: type: dev / idea / bug など）はPR本文でCloses指定
+# ----------------------------
+#

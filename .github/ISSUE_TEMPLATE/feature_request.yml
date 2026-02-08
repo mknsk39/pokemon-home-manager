@@ -1,0 +1,24 @@
+name: ✨ Dev / Idea
+description: 新機能・改善・アイデア
+labels: ["type: idea 💡"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: やりたいこと・解決したいこと
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景・目的
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: 想定タスク
+      placeholder: |
+        - [ ] タスク1
+        - [ ] タスク2
