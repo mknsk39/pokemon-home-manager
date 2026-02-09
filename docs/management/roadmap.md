@@ -7,7 +7,7 @@
 - [x] Firebase 初期化（Firebase SDK + Nuxt プラグイン・コンポーザブルとエミュレータ設定）
 
 ## Phase 2: データ基盤と認証の実装
-- [ ] JSONマスターデータ層の実装
+- [x] JSONマスターデータ層の実装
 - [ ] Googleログイン実装
 
 ## Phase 3: 図鑑コア機能の実装
