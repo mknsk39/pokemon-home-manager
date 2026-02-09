@@ -9,15 +9,27 @@
 		},
 		{
 			"type": "shell",
+			"command": "pnpm run emulator",
+			"label": "pnpm: emulator",
+			"detail": "firebase emulator"
+		},
+		{
+			"type": "shell",
 			"command": "pnpm run storybook",
 			"label": "pnpm: storybook",
-			"detail": "storybook dev"
+			"detail": "exec storybook"
 		},
 		{
 			"type": "shell",
 			"command": "pnpm run test",
 			"label": "pnpm: test",
-			"detail": "vitest"
+			"detail": "exec vitest"
+		},
+		{
+			"type": "shell",
+			"command": "pnpm run lint",
+			"label": "pnpm: lint",
+			"detail": "exec eslint"
 		}
 	]
 }
