@@ -4,6 +4,11 @@
     :size="size"
     :prepend-icon="prependIcon"
     :append-icon="appendIcon"
+    :variant="variant"
+    :block="block"
+    :disabled="disabled"
+    :loading="loading"
+    :icon="icon"
     v-bind="$attrs"
   >
     <slot />
@@ -16,6 +21,11 @@ interface Props {
   size?: 'x-small' | 'small' | 'default' | 'large' | 'x-large'
   prependIcon?: string
   appendIcon?: string
+  variant?: 'text' | 'flat' | 'elevated' | 'tonal' | 'outlined' | 'plain'
+  block?: boolean
+  disabled?: boolean
+  loading?: boolean
+  icon?: boolean | string
 }
 
 withDefaults(defineProps<Props>(), {
@@ -23,5 +33,10 @@ withDefaults(defineProps<Props>(), {
   size: 'default',
   prependIcon: undefined,
   appendIcon: undefined,
+  variant: undefined,
+  block: false,
+  disabled: false,
+  loading: false,
+  icon: undefined,
 })
 </script>

@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   ssr: false,
   runtimeConfig: {
     public: {
+      storybook: process.env.NUXT_STORYBOOK === '1',
       firebase: {
         apiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY ?? '',
         authDomain: process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? '',
@@ -34,6 +35,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@pinia/nuxt',
     '@nuxt/eslint',
     ...(process.env.NUXT_STORYBOOK === '1' ? ['@nuxtjs/storybook'] : []),
   ],

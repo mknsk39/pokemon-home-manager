@@ -14,6 +14,9 @@
 | `sentToHome` | boolean | HOME転送済みフラグ |
 | `updatedAt` | timestamp | 最終更新日時 |
 
+> [!NOTE]
+> `pokemonId` は `pokemonForms.id` を参照します。`pokemonForms.id` は表示上の連番性よりも参照の安定性を優先したIDで、並び順は `speciesId` / `formIndex` で制御します（詳細は `docs/data/static_data.md` を参照）。
+
 ## users (ユーザー)
 
 | フィールド名 | 型 | 説明 |

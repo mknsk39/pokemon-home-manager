@@ -1,19 +1,12 @@
+import { getApps, initializeApp } from 'firebase/app'
+import type { FirebaseApp, FirebaseOptions } from 'firebase/app'
+import { connectAuthEmulator, getAuth } from 'firebase/auth'
+import type { Auth } from 'firebase/auth'
 import {
-  FirebaseApp,
-  FirebaseOptions,
-  getApps,
-  initializeApp,
-} from 'firebase/app'
-import {
-  Auth,
-  connectAuthEmulator,
-  getAuth,
-} from 'firebase/auth'
-import {
-  Firestore,
   connectFirestoreEmulator,
   getFirestore,
 } from 'firebase/firestore'
+import type { Firestore } from 'firebase/firestore'
 
 export interface FirebaseEmulatorConfig {
   useEmulator?: boolean

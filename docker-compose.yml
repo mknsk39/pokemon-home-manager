@@ -9,9 +9,13 @@ services:
       - pnpm-store:/workspace/.pnpm-store
       - .nuxt:/workspace/.nuxt
     ports:
-      - "3000:3000"
-      - "24678:24678"
-      - "6006:6006"
+      - "3000:3000"     # Nuxt dev server
+      - "24678:24678"   # Vite HMR
+      - "6006:6006"     # Storybook
+      - "4000:4000"     # Firebase Emulator UI
+      - "8080:8080"     # Firebase Functions Emulator
+      - "9150:9150"     # Firestore Emulator UI WebSocket
+      - "9099:9099"     # Firebase Auth Emulator
     command: sh -c "while sleep 1000; do :; done"
     tty: true
 
