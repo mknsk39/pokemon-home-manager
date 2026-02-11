@@ -1,10 +1,10 @@
 # データ設計 (Firestore)
 
-動的に保存・同期されるデータモデルの定義です。
+動的に保存・同期されるデータモデルの定義。
 
 ## userCollection (個人の所持状況)
 
-ドキュメントIDは `{userId}_{pokemonId}` を推奨します。
+ドキュメント ID は `{userId}_{pokemonId}` を推奨。
 
 | フィールド名 | 型 | 説明 |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 | `updatedAt` | timestamp | 最終更新日時 |
 
 > [!NOTE]
-> `pokemonId` は `pokemonForms.id` を参照します。`pokemonForms.id` は表示上の連番性よりも参照の安定性を優先したIDで、並び順は `speciesId` / `formIndex` で制御します（詳細は `docs/data/static_data.md` を参照）。
+> `pokemonId` は `pokemonForms.id` を参照する。`pokemonForms.id` は表示上の連番性よりも参照の安定性を優先した ID で、並び順は `speciesId` / `formIndex` で制御（詳細は `docs/data/static_data.md` を参照）。
 
 ## users (ユーザー)
 
