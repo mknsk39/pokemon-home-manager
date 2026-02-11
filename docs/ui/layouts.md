@@ -33,3 +33,18 @@
   - アカウント名ボタンをクリックでメニュー展開
   - メニュー内にアバター、表示名、UID、ログアウトボタン
   - アバター未設定時はフォールバックアイコン
+
+---
+
+## 共通 UI パーツ
+
+### スクロールトップボタン
+
+長いリスト画面で使用する「ページ先頭に戻る」FAB ボタン。
+
+- Composable: `useScrollToTop` (`composables/useScrollToTop.ts`)
+- 表示条件: `window.scrollY` が 200px 以上
+- 配置: 画面右下固定 (`position: fixed`, `bottom: 24px`, `right: 24px`)
+- 動作: `window.scrollTo({ top: 0, behavior: 'smooth' })`
+- トランジション: opacity によるフェードイン/アウト (0.3s)
+- 使用箇所: `PokemonListView` (Organism)
