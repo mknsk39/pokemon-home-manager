@@ -1,17 +1,17 @@
 <template>
-  <AtomContainer class="fill-height d-flex align-center justify-center">
+  <BaseContainer class="fill-height d-flex align-center justify-center">
     <AuthLoginCard
       :loading="authStore.loading"
       :error="authStore.error"
       @login="handleLogin"
     />
-  </AtomContainer>
+  </BaseContainer>
 </template>
 
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
 import AuthLoginCard from '../components/organisms/AuthLoginCard.vue'
-import AtomContainer from '../components/atoms/AtomContainer.vue'
+import BaseContainer from '../components/atoms/BaseContainer.vue'
 import { useAuthStore } from '../stores/auth'
 
 const authStore = useAuthStore()

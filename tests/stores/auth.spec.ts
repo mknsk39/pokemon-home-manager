@@ -14,13 +14,15 @@ vi.mock('../../composables/useFirebase', () => ({
 
 const mockSignInWithGooglePopup = vi.fn()
 const mockSignOutFromFirebase = vi.fn()
+const mockSubscribeToAuthChanges = vi.fn()
 let authCallback: AuthChangeHandler | null = null
 
 vi.mock('../../services/auth', () => ({
   signInWithGooglePopup: (...args: unknown[]) => mockSignInWithGooglePopup(...args),
   signOutFromFirebase: (...args: unknown[]) => mockSignOutFromFirebase(...args),
-  subscribeToAuthChanges: (_auth: unknown, callback: AuthChangeHandler) => {
-    authCallback = callback
+  subscribeToAuthChanges: (...args: unknown[]) => {
+    authCallback = args[1] as AuthChangeHandler
+    mockSubscribeToAuthChanges(...args)
     return vi.fn()
   },
 }))
@@ -44,6 +46,7 @@ describe('auth store', () => {
     mockSignInWithGooglePopup.mockReset()
     mockSignOutFromFirebase.mockReset()
     mockEnsureUserProfile.mockReset()
+    mockSubscribeToAuthChanges.mockReset()
     authCallback = null
   })
 
@@ -94,5 +97,68 @@ describe('auth store', () => {
     expect(mockSignOutFromFirebase).toHaveBeenCalledWith(mockAuth)
     expect(store.user).toBeNull()
     expect(store.profile).toBeNull()
+  })
+
+  it('sets error state when login fails', async () => {
+    const store = useAuthStore()
+    mockSignInWithGooglePopup.mockRejectedValueOnce(new Error('popup closed'))
+
+    await expect(store.login()).rejects.toThrow('popup closed')
+
+    expect(store.error).toBe('popup closed')
+  })
+
+  it('sets error state and clears user when logout fails', async () => {
+    const store = useAuthStore()
+    const user = createUser({})
+
+    const initPromise = store.initAuthListener()
+    await authCallback?.(user)
+    await initPromise
+
+    mockSignOutFromFirebase.mockRejectedValueOnce(new Error('network error'))
+
+    await expect(store.logout()).rejects.toThrow('network error')
+
+    expect(store.error).toBe('network error')
+    expect(store.user).toBeNull()
+    expect(store.profile).toBeNull()
+  })
+
+  it('sets error state when ensureUserProfile fails during init', async () => {
+    const store = useAuthStore()
+    mockEnsureUserProfile.mockRejectedValueOnce(new Error('firestore error'))
+
+    const initPromise = store.initAuthListener()
+    await authCallback?.(createUser({}))
+    await initPromise
+
+    expect(store.error).toBe('firestore error')
+    expect(store.profile).not.toBeNull()
+    expect(store.loading).toBe(false)
+  })
+
+  it('does not subscribe twice on double initialization', () => {
+    const store = useAuthStore()
+
+    store.initAuthListener()
+    store.initAuthListener()
+
+    expect(mockSubscribeToAuthChanges).toHaveBeenCalledTimes(1)
+  })
+
+  it('resets state on dispose', async () => {
+    const store = useAuthStore()
+
+    const initPromise = store.initAuthListener()
+    await authCallback?.(createUser({}))
+    await initPromise
+
+    expect(store.initialized).toBe(true)
+
+    store.dispose()
+
+    expect(store.initialized).toBe(false)
+    expect(store.loading).toBe(true)
   })
 })

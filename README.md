@@ -50,12 +50,12 @@ cd pokemon-home-manager
 
 | コマンド | 説明 |
 |---------|------|
-| `npm run dev` | 開発サーバーを起動（http://localhost:3000） |
-| `npm run build` | プロダクションビルド |
-| `npm run test` | Vitestでテストを実行 |
-| `npm run storybook` | Storybookを起動 |
-| `npm run lint` | ESLintでコードをチェック |
-| `npm run emulator` | Firebase Emulator Auth/Firestore を起動 |
+| `pnpm dev` | 開発サーバーを起動（http://localhost:3000） |
+| `pnpm build` | プロダクションビルド |
+| `pnpm test` | Vitestでテストを実行 |
+| `pnpm storybook` | Storybookを起動 |
+| `pnpm lint` | ESLintでコードをチェック |
+| `pnpm emulator` | Firebase Emulator Auth/Firestore を起動 |
 
 ## 🔥 Firebase Emulator
 
@@ -63,26 +63,24 @@ cd pokemon-home-manager
 
 ```bash
 # Firebase Emulator を起動
-npm run emulator
+pnpm emulator
 ```
 
 ### Firebase 設定
 
-1. `cp .env.example .env` で環境変数ファイルを用意し、各 `NUXT_PUBLIC_FIREBASE_*` と `USE_FIREBASE_EMULATOR`, `FIREBASE_EMULATOR_HOST`, `FIREBASE_AUTH_EMULATOR_PORT`, `FIRESTORE_EMULATOR_PORT` を実際の値（またはエミュレータ用の反映）で上書きします。
-2. `nuxt.config.ts` の `runtimeConfig.public.firebase` がこれらの値を読み込み、アプリ全体で Firebase を初期化します。
-3. `useFirebase()`, `useFirebaseAuth()`, `useFirebaseFirestore()` で Nuxt のコンポーネント/ユースケースから安全にサービスを取得してください（未初期化時はエラーを投げます）。
+`.env.example` をコピーして `.env` を作成し、Firebase の接続情報を設定してください。
+詳細は `.env.example` 内のコメントを参照してください。
 
 ## 📚 ドキュメント
 
 | ドキュメント | 内容 |
 |-------------|------|
-| [ドキュメント目次](./docs/index.md) | **全ての詳細ドキュメントへの入り口** |
-| [開発規約](./docs/management/conventions.md) | 開発手法、ディレクトリ構造、コーディングスタイル |
-| [開発運用ガイド](./.github/CONTRIBUTING.md) | Issue・ブランチ・コミット・PRの運用ルール |
+| [仕様書](./docs/index.md) | **機能要件・データ設計・画面構成** |
+| [開発運用ガイド](./CONTRIBUTING.md) | 開発手法・アーキテクチャ・Git 運用ルール |
 
 ## 🤝 コントリビュート
 
-本プロジェクトへの貢献については [CONTRIBUTING.md](./.github/CONTRIBUTING.md) をご覧ください。
+本プロジェクトへの貢献については [CONTRIBUTING.md](./CONTRIBUTING.md) をご覧ください。
 
 ## 📄 ライセンス
 

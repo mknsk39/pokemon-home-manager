@@ -2,24 +2,24 @@
   <header class="app-header">
     <div class="app-header__inner">
       <div class="app-header__brand">
-        <AtomIcon icon="mdi-pokeball" size="24" class="mr-2" />
+        <BaseIcon icon="mdi-pokeball" size="24" class="mr-2" />
         <span class="text-subtitle-1 font-weight-bold">Pokemon HOME Manager</span>
       </div>
 
       <div class="app-header__actions">
-        <AtomMenu v-if="profile" v-model="menuOpen">
+        <BaseMenu v-if="profile" v-model="menuOpen">
           <template #activator="{ props }">
-            <AtomButton
+            <BaseButton
               v-bind="props"
               variant="text"
               :disabled="logoutLoading"
               prepend-icon="mdi-account-circle"
             >
               {{ profile.displayName }}
-            </AtomButton>
+            </BaseButton>
           </template>
 
-          <AtomCard class="pa-2 app-header__menu-card" elevation="4" rounded="lg">
+          <BaseCard class="pa-2 app-header__menu-card" elevation="4" rounded="lg">
             <div class="d-flex align-center px-3 py-2">
               <img
                 v-if="profile.photoURL"
@@ -27,7 +27,7 @@
                 alt="avatar"
                 class="app-header__avatar mr-3"
               >
-              <AtomIcon
+              <BaseIcon
                 v-else
                 icon="mdi-account-circle"
                 size="36"
@@ -44,7 +44,7 @@
             </div>
 
             <div class="px-2 pb-2">
-              <AtomButton
+              <BaseButton
                 block
                 color="error"
                 variant="text"
@@ -53,13 +53,13 @@
                 @click="handleLogout"
               >
                 ログアウト
-              </AtomButton>
+              </BaseButton>
               <p v-if="error" class="text-error text-caption mt-2 px-2">
                 {{ error }}
               </p>
             </div>
-          </AtomCard>
-        </AtomMenu>
+          </BaseCard>
+        </BaseMenu>
       </div>
     </div>
   </header>
@@ -68,10 +68,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { UserProfile } from '../../types/auth'
-import AtomButton from '../atoms/AtomButton.vue'
-import AtomCard from '../atoms/AtomCard.vue'
-import AtomIcon from '../atoms/AtomIcon.vue'
-import AtomMenu from '../atoms/AtomMenu.vue'
+import BaseButton from '../atoms/BaseButton.vue'
+import BaseCard from '../atoms/BaseCard.vue'
+import BaseIcon from '../atoms/BaseIcon.vue'
+import BaseMenu from '../atoms/BaseMenu.vue'
 
 interface Props {
   profile: UserProfile | null

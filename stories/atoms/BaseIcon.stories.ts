@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@nuxtjs/storybook'
-import AtomIcon from '../../components/atoms/AtomIcon.vue'
+import BaseIcon from '../../components/atoms/BaseIcon.vue'
 
-const meta: Meta<typeof AtomIcon> = {
-  title: 'Atoms/AtomIcon',
-  component: AtomIcon,
+const meta: Meta<typeof BaseIcon> = {
+  title: 'Atoms/BaseIcon',
+  component: BaseIcon,
   tags: ['autodocs'],
   argTypes: {
     size: { control: 'number' },
@@ -13,7 +13,7 @@ const meta: Meta<typeof AtomIcon> = {
 }
 
 export default meta
-type Story = StoryObj<typeof AtomIcon>
+type Story = StoryObj<typeof BaseIcon>
 
 export const Default: Story = {
   args: {

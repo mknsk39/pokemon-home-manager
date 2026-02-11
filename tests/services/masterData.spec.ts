@@ -14,5 +14,29 @@ describe('master data service', () => {
     expect(service.getForm(303)?.isGigantamax).toBe(true)
     expect(service.getForm(300)?.imageUrl).toBe('')
   })
+
+  it('returns all species sorted by id via listSpecies', () => {
+    const service = createMasterDataService()
+    const species = service.listSpecies()
+
+    expect(species.length).toBeGreaterThan(0)
+
+    for (let i = 1; i < species.length; i++) {
+      expect(species[i].id).toBeGreaterThan(species[i - 1].id)
+    }
+  })
+
+  it('returns undefined for non-existent species and form', () => {
+    const service = createMasterDataService()
+
+    expect(service.getSpecies(999999)).toBeUndefined()
+    expect(service.getForm(999999)).toBeUndefined()
+  })
+
+  it('returns empty array for species with no forms', () => {
+    const service = createMasterDataService()
+
+    expect(service.listForms(999999)).toEqual([])
+  })
 })
 

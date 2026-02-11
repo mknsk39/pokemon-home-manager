@@ -1,12 +1,12 @@
 <template>
   <div class="auth-login-card">
-    <AtomCard class="pa-8 text-center">
-      <AtomIcon icon="mdi-pokeball" size="64" class="mb-4" />
+    <BaseCard class="pa-8 text-center">
+      <BaseIcon icon="mdi-pokeball" size="64" class="mb-4" />
       <h1 class="text-h4 font-weight-bold mb-2">Pokemon HOME Manager</h1>
       <p class="text-body-1 text-medium-emphasis mb-6">
         自分だけのロトム図鑑を作ろう！
       </p>
-      <AtomButton
+      <BaseButton
         color="primary"
         size="large"
         prepend-icon="mdi-google"
@@ -14,16 +14,16 @@
         @click="$emit('login')"
       >
         Googleでログイン
-      </AtomButton>
+      </BaseButton>
       <p v-if="error" class="text-error text-caption mt-4">{{ error }}</p>
-    </AtomCard>
+    </BaseCard>
   </div>
 </template>
 
 <script setup lang="ts">
-import AtomButton from '../atoms/AtomButton.vue'
-import AtomCard from '../atoms/AtomCard.vue'
-import AtomIcon from '../atoms/AtomIcon.vue'
+import BaseButton from '../atoms/BaseButton.vue'
+import BaseCard from '../atoms/BaseCard.vue'
+import BaseIcon from '../atoms/BaseIcon.vue'
 
 interface Props {
   loading?: boolean
