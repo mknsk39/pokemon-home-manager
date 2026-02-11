@@ -99,4 +99,24 @@ describe('createFirebaseServices', () => {
     expect(mockConnectAuthEmulator).not.toHaveBeenCalled()
     expect(mockConnectFirestoreEmulator).not.toHaveBeenCalled()
   })
+
+  it('throws when a required config field is missing', () => {
+    // eslint-disable-next-line no-unused-vars
+    const { apiKey: _apiKey, ...missingApiKey } = baseConfig
+
+    expect(() =>
+      createFirebaseServices(missingApiKey as never),
+    ).toThrowError('Firebase runtime config missing required field: apiKey')
+  })
+
+  it('reuses existing app when already initialized', () => {
+    const existingApp = { name: 'existing' }
+    mockGetApps.mockReturnValue([existingApp])
+
+    const services = createFirebaseServices(baseConfig)
+
+    expect(mockInitializeApp).not.toHaveBeenCalled()
+    expect(mockGetAuth).toHaveBeenCalledWith(existingApp)
+    expect(services.app).toBe(existingApp)
+  })
 })
