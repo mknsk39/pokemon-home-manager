@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@nuxtjs/storybook'
-import AtomButton from '../../components/atoms/AtomButton.vue'
+import BaseButton from '../../components/atoms/BaseButton.vue'
 
-const meta: Meta<typeof AtomButton> = {
-    title: 'Atoms/AtomButton',
-    component: AtomButton,
+const meta: Meta<typeof BaseButton> = {
+    title: 'Atoms/BaseButton',
+    component: BaseButton,
     tags: ['autodocs'],
     argTypes: {
         size: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof AtomButton> = {
 }
 
 export default meta
-type Story = StoryObj<typeof AtomButton>
+type Story = StoryObj<typeof BaseButton>
 
 export const Primary: Story = {
     args: {

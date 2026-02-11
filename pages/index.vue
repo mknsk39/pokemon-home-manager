@@ -1,21 +1,21 @@
 <template>
-  <AtomContainer class="fill-height justify-center align-center">
-    <AtomCard class="pa-8 text-center">
-      <AtomIcon icon="mdi-pokeball" size="64" class="mb-4" />
+  <BaseContainer class="fill-height justify-center align-center">
+    <BaseCard class="pa-8 text-center">
+      <BaseIcon icon="mdi-pokeball" size="64" class="mb-4" />
       <h1 class="text-h4 font-weight-bold mb-2">Pokemon HOME Manager</h1>
       <p class="text-body-1 text-medium-emphasis mb-6">
         自分だけのロトム図鑑を作ろう！
       </p>
-      <AtomButton size="large" prepend-icon="mdi-rocket-launch">
+      <BaseButton size="large" prepend-icon="mdi-rocket-launch">
         Get Started
-      </AtomButton>
-    </AtomCard>
-  </AtomContainer>
+      </BaseButton>
+    </BaseCard>
+  </BaseContainer>
 </template>
 
 <script setup lang="ts">
-import AtomButton from '../components/atoms/AtomButton.vue'
-import AtomCard from '../components/atoms/AtomCard.vue'
-import AtomContainer from '../components/atoms/AtomContainer.vue'
-import AtomIcon from '../components/atoms/AtomIcon.vue'
+import BaseButton from '../components/atoms/BaseButton.vue'
+import BaseCard from '../components/atoms/BaseCard.vue'
+import BaseContainer from '../components/atoms/BaseContainer.vue'
+import BaseIcon from '../components/atoms/BaseIcon.vue'
 </script>

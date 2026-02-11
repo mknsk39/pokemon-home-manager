@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@nuxtjs/storybook'
-import AtomCard from '../../components/atoms/AtomCard.vue'
+import BaseCard from '../../components/atoms/BaseCard.vue'
 
-const meta: Meta<typeof AtomCard> = {
-  title: 'Atoms/AtomCard',
-  component: AtomCard,
+const meta: Meta<typeof BaseCard> = {
+  title: 'Atoms/BaseCard',
+  component: BaseCard,
   tags: ['autodocs'],
   argTypes: {
     color: { control: 'text' },
@@ -13,7 +13,7 @@ const meta: Meta<typeof AtomCard> = {
 }
 
 export default meta
-type Story = StoryObj<typeof AtomCard>
+type Story = StoryObj<typeof BaseCard>
 
 export const Default: Story = {
   args: {
