@@ -1,5 +1,10 @@
 <template>
-  <PokemonListView :items="visibleItems" @load="onLoad">
+  <PokemonListView
+    :items="visibleItems"
+    :filtered-count="isFilterActive ? filteredItems.length : undefined"
+    :total-count="isFilterActive ? totalCount : undefined"
+    @load="onLoad"
+  >
     <template #header-actions>
       <BaseBtnToggle
         :model-value="viewMode"
@@ -10,60 +15,100 @@
         <BaseButton value="forms" variant="text">すがた</BaseButton>
       </BaseBtnToggle>
     </template>
+    <template #toolbar>
+      <PokemonSearchFilter
+        :search-text="searchText"
+        :generations="generations"
+        :regions="regions"
+        :special-forms="specialForms"
+        :gender-types="genderTypes"
+        :is-filter-active="isFilterActive"
+        :show-form-filters="viewMode === 'forms'"
+        @update:search-text="searchText = $event"
+        @update:generations="generations = $event"
+        @update:regions="regions = $event"
+        @update:special-forms="specialForms = $event"
+        @update:gender-types="genderTypes = $event"
+        @reset="resetFilters"
+      />
+    </template>
   </PokemonListView>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import BaseBtnToggle from '../components/atoms/BaseBtnToggle.vue'
 import BaseButton from '../components/atoms/BaseButton.vue'
 import type { InfiniteScrollStatus } from '../components/atoms/BaseInfiniteScroll.vue'
 import PokemonListView from '../components/organisms/PokemonListView.vue'
+import PokemonSearchFilter from '../components/molecules/PokemonSearchFilter.vue'
 import { useMasterData } from '../composables/useMasterData'
+import { usePokemonFilter } from '../composables/usePokemonFilter'
 
 type ViewMode = 'species' | 'forms'
 
 const CHUNK_SIZE = 50
 
 const masterData = useMasterData()
-
-const speciesItems = masterData.listSpecies().map((species) => ({
-  id: species.id,
-  dexNo: species.dexNo,
-  name: species.name,
-}))
-
-const formItems = masterData.listAllForms().map((form) => {
-  const species = masterData.getSpecies(form.speciesId)
-  return {
-    id: form.id,
-    dexNo: species?.dexNo ?? 0,
-    name: species?.name ?? '',
-    formName: form.formName || undefined,
-  }
-})
+const {
+  searchText,
+  generations,
+  regions,
+  specialForms,
+  genderTypes,
+  isFilterActive,
+  filteredSpecies,
+  filteredForms,
+  resetFilters,
+} = usePokemonFilter(masterData)
 
 const viewMode = ref<ViewMode>('species')
 const displayCount = ref(CHUNK_SIZE)
 
-const allItems = computed(() =>
-  viewMode.value === 'species' ? speciesItems : formItems,
-)
+const filteredItems = computed(() => {
+  if (viewMode.value === 'species') {
+    return filteredSpecies.value.map((species) => ({
+      id: species.id,
+      dexNo: species.dexNo,
+      name: species.name,
+    }))
+  }
+  return filteredForms.value.map((form) => {
+    const species = masterData.getSpecies(form.speciesId)
+    return {
+      id: form.id,
+      dexNo: species?.dexNo ?? 0,
+      name: species?.name ?? '',
+      formName: form.formName || undefined,
+    }
+  })
+})
 
-const visibleItems = computed(() => allItems.value.slice(0, displayCount.value))
+const totalCount = computed(() => {
+  if (viewMode.value === 'species') {
+    return masterData.listSpecies().length
+  }
+  return masterData.listAllForms().length
+})
+
+const visibleItems = computed(() => filteredItems.value.slice(0, displayCount.value))
 
 const onViewModeChange = (value: string | number) => {
   viewMode.value = value as ViewMode
   displayCount.value = CHUNK_SIZE
 }
 
+watch([searchText, generations, regions, specialForms, genderTypes], () => {
+  displayCount.value = CHUNK_SIZE
+})
+
 // eslint-disable-next-line no-unused-vars
 const onLoad = ({ done }: { side: string; done: (status: InfiniteScrollStatus) => void }) => {
-  if (displayCount.value >= allItems.value.length) {
+  if (displayCount.value >= filteredItems.value.length) {
     done('empty')
     return
   }
-  displayCount.value = Math.min(displayCount.value + CHUNK_SIZE, allItems.value.length)
-  done(displayCount.value >= allItems.value.length ? 'empty' : 'ok')
+  displayCount.value = Math.min(displayCount.value + CHUNK_SIZE, filteredItems.value.length)
+  done(displayCount.value >= filteredItems.value.length ? 'empty' : 'ok')
 }
 </script>

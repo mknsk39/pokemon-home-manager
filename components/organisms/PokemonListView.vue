@@ -12,6 +12,14 @@
       </div>
     </header>
 
+    <div v-if="$slots.toolbar" class="pokemon-list__toolbar">
+      <slot name="toolbar" />
+    </div>
+
+    <p v-if="filteredCount !== undefined && totalCount !== undefined" class="text-body-2 text-medium-emphasis pokemon-list__count">
+      全{{ totalCount }}件中 {{ filteredCount }}件表示
+    </p>
+
     <p v-if="items.length === 0" class="text-body-2 text-medium-emphasis">
       {{ emptyText }}
     </p>
@@ -63,11 +71,15 @@ interface Props {
   items: PokemonListItem[]
   title?: string
   emptyText?: string
+  filteredCount?: number
+  totalCount?: number
 }
 
 withDefaults(defineProps<Props>(), {
   title: 'ポケモン一覧',
   emptyText: '表示できるポケモンがありません。',
+  filteredCount: undefined,
+  totalCount: undefined,
 })
 
 const { isVisible, scrollToTop } = useScrollToTop()
@@ -101,6 +113,14 @@ defineEmits<{
 .pokemon-list__header-actions {
   display: flex;
   align-items: center;
+}
+
+.pokemon-list__toolbar {
+  margin-bottom: 12px;
+}
+
+.pokemon-list__count {
+  margin-bottom: 8px;
 }
 
 .pokemon-list__grid {

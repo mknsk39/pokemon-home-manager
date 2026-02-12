@@ -52,6 +52,34 @@ export const WithHeaderActions: Story = {
   }),
 }
 
+export const WithToolbar: Story = {
+  args: {
+    items: sampleItems,
+    filteredCount: 3,
+    totalCount: 5,
+  },
+  render: (args) => ({
+    components: { PokemonListView },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PokemonListView v-bind="args">
+        <template #toolbar>
+          <v-text-field
+            placeholder="名前 または 図鑑No. で検索..."
+            prepend-inner-icon="mdi-magnify"
+            clearable
+            hide-details
+            density="compact"
+            variant="outlined"
+          />
+        </template>
+      </PokemonListView>
+    `,
+  }),
+}
+
 export const WithFormNames: Story = {
   args: {
     items: [
