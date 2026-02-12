@@ -7,7 +7,7 @@ services:
       - .:/workspace
       - node_modules:/workspace/node_modules
       - pnpm-store:/workspace/.pnpm-store
-      - .nuxt:/workspace/.nuxt
+      - nuxt-cache:/workspace/.nuxt
     ports:
       - "3000:3000"     # Nuxt dev server
       - "24678:24678"   # Vite HMR
@@ -22,4 +22,4 @@ services:
 volumes:
   node_modules:
   pnpm-store:
-  .nuxt:
+  nuxt-cache:

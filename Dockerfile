@@ -6,6 +6,7 @@ RUN npm install -g pnpm && \
     apt-get update && apt-get install -y \
     git \
     curl \
+    vim \
     openjdk-17-jdk \
     && rm -rf /var/lib/apt/lists/*
 

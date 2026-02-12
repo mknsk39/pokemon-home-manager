@@ -10,11 +10,6 @@ body:
       placeholder: 具体的な作業内容を記載してください
     validations:
       required: true
-  - type: input
-    id: parent_issue
-    attributes:
-      label: 親Issue
-      description: 紐づく親Issue番号
   - type: textarea
     id: check_list
     attributes:

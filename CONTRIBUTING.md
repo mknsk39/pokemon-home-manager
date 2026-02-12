@@ -204,6 +204,7 @@ UI コンポーネントは以下のルールで分割します。
 | `category: infra ☁️` | `.devcontainer/`, Firebase, CI/CD | インフラ・デプロイ・PWA設定の変更 |
 | `category: docs 📚` | `docs/` | 設計資料・運用ドキュメントの変更 |
 | `category: refactor ♻️` | 全体 | リファクタ・構造改善・技術的負債の解消 |
+| `category: dev-env 🧰` | `.devcontainer/`, 設定ファイル, ツール | 開発環境・DX の改善 |
 
 ### 3.3 Issue のクローズ方針
 
@@ -298,6 +299,42 @@ PR 作成時には、用意されたテンプレートを使用してくださ�
 - テンプレート：`.github/pull_request_template.md`
 
 動作確認項目は、運用しながら必要に応じて拡張していきます。
+
+---
+
+## 7. 🤖 CI (GitHub Actions)
+
+### 7.1 概要
+
+`main` ブランチへの Pull Request 作成時に、以下の品質チェックが自動で実行されます。
+
+| ジョブ | 実行内容 | 目的 |
+| --- | --- | --- |
+| **lint** | `pnpm lint` | コードスタイルチェック |
+| **test** | `pnpm test` | Vitest によるテスト実行 |
+| **build** | `pnpm build` | TypeScript 型チェック + ビルド確認 |
+
+3つのジョブは **並列実行** されます。
+
+### 7.2 ワークフロー定義
+
+- 定義ファイル：`.github/workflows/ci.yml`
+
+### 7.3 CI が失敗した場合
+
+PR の CI チェックが失敗した場合は、merge 前に修正してください。
+
+1. GitHub の PR ページで失敗したジョブを確認
+2. ログから原因を特定
+3. ローカルで修正し、以下のコマンドで事前確認
+
+   ```bash
+   pnpm lint
+   pnpm test
+   pnpm build
+   ```
+
+4. 修正コミットを push して CI を再実行
 
 ---
 
