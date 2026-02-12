@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head:*)",
+      "Bash(git rm:*)",
+      "Bash(for file in \"docs/infra/firebase.md\" \"docs/infra/services.md\" \"docs/management/conventions.md\" \"docs/management/roadmap.md\" \"docs/ui/components.md\" \"GEMINI.md\")",
+      "Bash(do)",
+      "Bash(if [ -f \"$file\" ])",
+      "Bash(then)",
+      "Bash(echo:*)",
+      "Bash(else)",
+      "Bash(fi:*)",
+      "Bash(done)",
+      "Bash(git mv:*)",
+      "Bash(docker compose exec:*)",
+      "Bash(sudo chown:*)",
+      "Bash(git rebase:*)",
+      "Bash(git add:*)",
+      "Bash(find:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "context7"
+  ]
+}

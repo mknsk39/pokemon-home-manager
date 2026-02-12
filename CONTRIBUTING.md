@@ -204,6 +204,7 @@ UI コンポーネントは以下のルールで分割します。
 | `category: infra ☁️` | `.devcontainer/`, Firebase, CI/CD | インフラ・デプロイ・PWA設定の変更 |
 | `category: docs 📚` | `docs/` | 設計資料・運用ドキュメントの変更 |
 | `category: refactor ♻️` | 全体 | リファクタ・構造改善・技術的負債の解消 |
+| `category: dev-env 🧰` | `.devcontainer/`, 設定ファイル, ツール | 開発環境・DX の改善 |
 
 ### 3.3 Issue のクローズ方針
 
