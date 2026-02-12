@@ -1,10 +1,15 @@
 <template>
   <BaseContainer class="pokemon-list">
     <header class="pokemon-list__header">
-      <BaseIcon icon="mdi-pokeball" size="28" class="mr-2" />
-      <h1 class="text-h5 font-weight-bold">
-        {{ title }}
-      </h1>
+      <div class="pokemon-list__header-title">
+        <BaseIcon icon="mdi-pokeball" size="28" class="mr-2" />
+        <h1 class="text-h5 font-weight-bold">
+          {{ title }}
+        </h1>
+      </div>
+      <div v-if="$slots['header-actions']" class="pokemon-list__header-actions">
+        <slot name="header-actions" />
+      </div>
     </header>
 
     <p v-if="items.length === 0" class="text-body-2 text-medium-emphasis">
@@ -16,25 +21,13 @@
       @load="$emit('load', $event)"
     >
       <div class="pokemon-list__grid">
-        <BaseCard
+        <PokemonCard
           v-for="item in items"
           :key="item.id"
-          class="pokemon-list__card"
-          elevation="6"
-          rounded="lg"
-        >
-          <div class="pokemon-list__card-inner">
-            <BaseIcon icon="mdi-pokeball" size="20" class="mr-2" />
-            <div class="pokemon-list__meta">
-              <span class="text-caption text-medium-emphasis">
-                No.{{ item.dexNo }}
-              </span>
-              <span class="text-body-1 font-weight-medium">
-                {{ item.name }}
-              </span>
-            </div>
-          </div>
-        </BaseCard>
+          :dex-no="item.dexNo"
+          :name="item.name"
+          :form-name="item.formName"
+        />
       </div>
     </BaseInfiniteScroll>
 
@@ -55,21 +48,16 @@
 </template>
 
 <script setup lang="ts">
+import type { PokemonListItem } from '../../types/pokemon'
 import { useScrollToTop } from '../../composables/useScrollToTop'
 import BaseButton from '../atoms/BaseButton.vue'
-import BaseCard from '../atoms/BaseCard.vue'
 import BaseContainer from '../atoms/BaseContainer.vue'
 import BaseIcon from '../atoms/BaseIcon.vue'
 import BaseInfiniteScroll, {
   type InfiniteScrollSide,
   type InfiniteScrollStatus,
 } from '../atoms/BaseInfiniteScroll.vue'
-
-type PokemonListItem = {
-  id: number
-  dexNo: number
-  name: string
-}
+import PokemonCard from '../molecules/PokemonCard.vue'
 
 interface Props {
   items: PokemonListItem[]
@@ -99,35 +87,26 @@ defineEmits<{
 .pokemon-list__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 16px;
 }
 
-.pokemon-list__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
-  gap: 12px;
-}
-
-.pokemon-list__card {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.pokemon-list__card-inner {
+.pokemon-list__header-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px;
 }
 
-.pokemon-list__meta {
+.pokemon-list__header-actions {
   display: flex;
-  flex-direction: column;
-  min-width: 0;
+  align-items: center;
 }
 
-.pokemon-list__meta .text-body-1 {
-  white-space: nowrap;
+.pokemon-list__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+  gap: 12px;
 }
 
 .scroll-top-fab {

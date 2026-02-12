@@ -48,3 +48,13 @@
 - 動作: `window.scrollTo({ top: 0, behavior: 'smooth' })`
 - トランジション: opacity によるフェードイン/アウト (0.3s)
 - 使用箇所: `PokemonListView` (Organism)
+
+### PokemonCard (Molecule)
+
+ポケモン1体分の情報を表示するカードコンポーネント。
+
+- Props: `dexNo`（図鑑No）、`name`（ポケモン名）、`formName?`（姿名）
+- 構成: `BaseCard` + `BaseIcon` + `BaseTooltip`
+- 姿名がある場合はサブテキストとして1行表示（テキスト省略 + ツールチップ）
+- 姿名が無い場合もサブテキスト領域の高さを確保し、カード高さを統一
+- 使用箇所: `PokemonListView` (Organism)

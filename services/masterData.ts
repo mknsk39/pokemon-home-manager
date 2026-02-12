@@ -8,6 +8,7 @@ import formsJson from '../constants/master/pokemonForms.json'
 export interface MasterDataService {
   listSpecies(): PokemonSpecies[]
   getSpecies(id: number): PokemonSpecies | undefined
+  listAllForms(): PokemonForm[]
   listForms(speciesId: number): PokemonForm[]
   getForm(id: number): PokemonForm | undefined
 }
@@ -41,6 +42,7 @@ export const createMasterDataService = (): MasterDataService => {
   return {
     listSpecies: () => species,
     getSpecies: (id) => speciesById.get(id),
+    listAllForms: () => forms,
     listForms: (speciesId) => formsBySpeciesId.get(speciesId) ?? [],
     getForm: (id) => formsById.get(id),
   }

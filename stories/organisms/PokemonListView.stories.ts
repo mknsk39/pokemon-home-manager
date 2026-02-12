@@ -29,3 +29,36 @@ export const Empty: Story = {
     items: [],
   },
 }
+
+export const WithHeaderActions: Story = {
+  args: {
+    items: sampleItems,
+  },
+  render: (args) => ({
+    components: { PokemonListView },
+    setup() {
+      return { args }
+    },
+    template: `
+      <PokemonListView v-bind="args">
+        <template #header-actions>
+          <v-btn-toggle model-value="species" mandatory color="primary" variant="outlined" density="compact" divided>
+            <v-btn value="species">種別</v-btn>
+            <v-btn value="forms">すがた</v-btn>
+          </v-btn-toggle>
+        </template>
+      </PokemonListView>
+    `,
+  }),
+}
+
+export const WithFormNames: Story = {
+  args: {
+    items: [
+      { id: 1, dexNo: 3, name: 'フシギバナ', formName: 'オスのすがた' },
+      { id: 2, dexNo: 3, name: 'フシギバナ', formName: 'メスのすがた' },
+      { id: 3, dexNo: 6, name: 'リザードン' },
+      { id: 4, dexNo: 6, name: 'リザードン', formName: 'メガリザードンX' },
+    ],
+  },
+}
