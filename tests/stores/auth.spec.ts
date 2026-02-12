@@ -32,6 +32,12 @@ vi.mock('../../services/userProfile', () => ({
   ensureUserProfile: (...args: unknown[]) => mockEnsureUserProfile(...args),
 }))
 
+vi.mock('../../services/ownership', () => ({
+  subscribeToOwnership: vi.fn(() => vi.fn()),
+  addOwnedForm: vi.fn(),
+  removeOwnedForm: vi.fn(),
+}))
+
 const createUser = (overrides: Partial<User>): User =>
   ({
     uid: 'user-1',

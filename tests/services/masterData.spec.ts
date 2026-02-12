@@ -38,5 +38,16 @@ describe('master data service', () => {
 
     expect(service.listForms(999999)).toEqual([])
   })
+
+  it('returns all forms sorted by id via listAllForms', () => {
+    const service = createMasterDataService()
+    const allForms = service.listAllForms()
+
+    expect(allForms.length).toBe(1591)
+
+    for (let i = 1; i < allForms.length; i++) {
+      expect(allForms[i].id).toBeGreaterThan(allForms[i - 1].id)
+    }
+  })
 })
 

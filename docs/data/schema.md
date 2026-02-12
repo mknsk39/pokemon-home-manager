@@ -2,7 +2,23 @@
 
 動的に保存・同期されるデータモデルの定義。
 
-## userCollection (個人の所持状況)
+## userOwnership (所持管理)
+
+ドキュメント ID は `{userId}`。ユーザーごとに 1 ドキュメントで所持済みフォームを管理する。
+
+| フィールド名 | 型 | 説明 |
+| --- | --- | --- |
+| `ownedFormIds` | number[] | 所持済みの PokemonForm.id の配列 |
+| `updatedAt` | timestamp | 最終更新日時 |
+
+- `arrayUnion` / `arrayRemove` で個別トグル（配列全体の書き換え不要）
+- 1591 件全所持でも約 6.4KB（Firestore 1MB リミットの問題なし）
+- `onSnapshot` によるリアルタイムリスナーで複数端末同期
+
+> [!NOTE]
+> `ownedFormIds` の各値は `pokemonForms.id` を参照する。将来的にソフト別所持管理などが必要になった場合は、`userCollection` コレクションへの移行を検討する。
+
+## userCollection (個人の所持状況) ※将来拡張用
 
 ドキュメント ID は `{userId}_{pokemonId}` を推奨。
 
