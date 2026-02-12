@@ -34,8 +34,8 @@
 ## 動作確認
 
 ### テスト
-- [ ] `npm run test` がパスすること
-- [ ] `npm run lint` がパスすること
+- [ ] `pnpm run test` がパスすること
+- [ ] `pnpm run lint` がパスすること
 
 ### UI/カタログ (UI変更がある場合)
 - [ ] Storybook で各パターンが崩れていないか確認した
