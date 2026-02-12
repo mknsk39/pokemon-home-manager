@@ -6,6 +6,7 @@ import { useFirebaseAuth, useFirebaseFirestore } from '../composables/useFirebas
 import { signInWithGooglePopup, signOutFromFirebase, subscribeToAuthChanges } from '../services/auth'
 import { ensureUserProfile } from '../services/userProfile'
 import { toUserProfile } from '../domain/userProfile'
+import { useOwnershipStore } from './ownership'
 
 const toErrorMessage = (error: unknown): string => {
   if (error instanceof Error) {
@@ -41,12 +42,17 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = firebaseUser
         profile.value = firebaseUser ? toUserProfile(firebaseUser) : null
 
+        const ownershipStore = useOwnershipStore()
+
         if (firebaseUser) {
           try {
             await ensureUserProfile(firestore, firebaseUser)
           } catch (err) {
             error.value = toErrorMessage(err)
           }
+          ownershipStore.startListening(firebaseUser.uid)
+        } else {
+          ownershipStore.stopListening()
         }
 
         loading.value = false
@@ -80,6 +86,8 @@ export const useAuthStore = defineStore('auth', () => {
       error.value = toErrorMessage(err)
       throw err
     } finally {
+      const ownershipStore = useOwnershipStore()
+      ownershipStore.stopListening()
       user.value = null
       profile.value = null
     }

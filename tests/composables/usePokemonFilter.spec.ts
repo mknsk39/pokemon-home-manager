@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { ref } from 'vue'
 import { usePokemonFilter } from '../../composables/usePokemonFilter'
 import type { MasterDataService } from '../../services/masterData'
 import type { PokemonForm, PokemonSpecies } from '../../types/masterData'
@@ -115,5 +116,58 @@ describe('usePokemonFilter', () => {
     expect(isFilterActive.value).toBe(false)
     expect(filteredSpecies.value).toHaveLength(3)
     expect(filteredForms.value).toHaveLength(5)
+  })
+
+  it('filters forms by ownership (owned)', () => {
+    const ownedFormIds = ref(new Set([100, 300]))
+    const { filteredForms, ownershipFilter } = usePokemonFilter(mockMasterData, ownedFormIds)
+
+    ownershipFilter.value = ['owned']
+    expect(filteredForms.value).toHaveLength(2)
+    expect(filteredForms.value.map((f) => f.id)).toEqual([100, 300])
+  })
+
+  it('filters forms by ownership (unowned)', () => {
+    const ownedFormIds = ref(new Set([100, 300]))
+    const { filteredForms, ownershipFilter } = usePokemonFilter(mockMasterData, ownedFormIds)
+
+    ownershipFilter.value = ['unowned']
+    expect(filteredForms.value).toHaveLength(3)
+  })
+
+  it('filters species by ownership (owned = all forms owned)', () => {
+    const ownedFormIds = ref(new Set([100]))
+    const { filteredSpecies, ownershipFilter } = usePokemonFilter(mockMasterData, ownedFormIds)
+
+    ownershipFilter.value = ['owned']
+    // species 1 has 1 form (100) → all owned
+    expect(filteredSpecies.value).toHaveLength(1)
+    expect(filteredSpecies.value[0].id).toBe(1)
+  })
+
+  it('filters species by ownership (unowned = no forms owned)', () => {
+    const ownedFormIds = ref(new Set([100]))
+    const { filteredSpecies, ownershipFilter } = usePokemonFilter(mockMasterData, ownedFormIds)
+
+    ownershipFilter.value = ['unowned']
+    // species 3 has 2 forms (300, 301) → none owned
+    // species 25 has 2 forms (2500, 2501) → none owned
+    expect(filteredSpecies.value).toHaveLength(2)
+  })
+
+  it('isFilterActive is true when ownershipFilter is set', () => {
+    const { isFilterActive, ownershipFilter } = usePokemonFilter(mockMasterData)
+
+    expect(isFilterActive.value).toBe(false)
+    ownershipFilter.value = ['owned']
+    expect(isFilterActive.value).toBe(true)
+  })
+
+  it('resetFilters also clears ownershipFilter', () => {
+    const { ownershipFilter, resetFilters } = usePokemonFilter(mockMasterData)
+
+    ownershipFilter.value = ['owned']
+    resetFilters()
+    expect(ownershipFilter.value).toEqual([])
   })
 })

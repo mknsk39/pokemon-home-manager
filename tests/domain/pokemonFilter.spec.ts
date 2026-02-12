@@ -30,6 +30,7 @@ const emptyCondition: PokemonFilterCondition = {
   regions: [],
   specialForms: [],
   genderTypes: [],
+  ownershipFilter: [],
 }
 
 const species = [
@@ -296,5 +297,93 @@ describe('filterForms', () => {
       searchText: '存在しない',
     })
     expect(result).toHaveLength(0)
+  })
+
+  describe('ownership filter', () => {
+    const ownedFormIds = new Set([100, 300, 2500])
+
+    it('returns only owned forms when ownershipFilter is owned', () => {
+      const result = filterForms(allForms, getSpeciesFn, {
+        ...emptyCondition,
+        ownershipFilter: ['owned'],
+      }, ownedFormIds)
+      expect(result).toHaveLength(3)
+      expect(result.every((f) => ownedFormIds.has(f.id))).toBe(true)
+    })
+
+    it('returns only unowned forms when ownershipFilter is unowned', () => {
+      const result = filterForms(allForms, getSpeciesFn, {
+        ...emptyCondition,
+        ownershipFilter: ['unowned'],
+      }, ownedFormIds)
+      expect(result).toHaveLength(allForms.length - 3)
+      expect(result.every((f) => !ownedFormIds.has(f.id))).toBe(true)
+    })
+
+    it('returns all forms when ownershipFilter is empty', () => {
+      const result = filterForms(allForms, getSpeciesFn, emptyCondition, ownedFormIds)
+      expect(result).toHaveLength(allForms.length)
+    })
+
+    it('combines ownership filter with search text', () => {
+      const result = filterForms(allForms, getSpeciesFn, {
+        ...emptyCondition,
+        searchText: 'フシギ',
+        ownershipFilter: ['owned'],
+      }, ownedFormIds)
+      expect(result).toHaveLength(2)
+    })
+
+    it('works without ownedFormIds argument (treats all as unowned)', () => {
+      const result = filterForms(allForms, getSpeciesFn, {
+        ...emptyCondition,
+        ownershipFilter: ['owned'],
+      })
+      expect(result).toHaveLength(0)
+    })
+  })
+})
+
+describe('filterSpecies with ownership', () => {
+  const meta = buildSpeciesFilterMeta(species, getFormsFn)
+  const ownedFormIds = new Set([100, 300, 301])
+
+  it('returns only fully owned species when ownershipFilter is owned', () => {
+    const result = filterSpecies(species, meta, {
+      ...emptyCondition,
+      ownershipFilter: ['owned'],
+    }, getFormsFn, ownedFormIds)
+    // species 1: 1 form [100] → all owned ✓
+    // species 3: 2 forms [300, 301] → all owned ✓
+    // others: not all owned
+    expect(result).toHaveLength(2)
+    expect(result.map((s) => s.id)).toEqual([1, 3])
+  })
+
+  it('returns only fully unowned species when ownershipFilter is unowned', () => {
+    const result = filterSpecies(species, meta, {
+      ...emptyCondition,
+      ownershipFilter: ['unowned'],
+    }, getFormsFn, ownedFormIds)
+    // species 2: 1 form [200], none owned
+    // species 25: 3 forms, none owned
+    // species 26: 2 forms, none owned
+    // species 150: 3 forms, none owned
+    expect(result).toHaveLength(4)
+    expect(result.map((s) => s.id)).toEqual([2, 25, 26, 150])
+  })
+
+  it('returns all species when ownershipFilter is empty', () => {
+    const result = filterSpecies(species, meta, emptyCondition, getFormsFn, ownedFormIds)
+    expect(result).toHaveLength(species.length)
+  })
+
+  it('combines ownership filter with search text', () => {
+    const result = filterSpecies(species, meta, {
+      ...emptyCondition,
+      searchText: 'フシギ',
+      ownershipFilter: ['owned'],
+    }, getFormsFn, ownedFormIds)
+    expect(result).toHaveLength(2)
   })
 })

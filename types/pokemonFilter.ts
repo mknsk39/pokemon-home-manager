@@ -1,4 +1,5 @@
 import type { Region } from './masterData'
+import type { OwnershipFilterType } from './ownership'
 
 export type SpecialFormType = 'mega' | 'gigantamax' | 'primal'
 
@@ -10,6 +11,7 @@ export type PokemonFilterCondition = {
   regions: Region[]
   specialForms: SpecialFormType[]
   genderTypes: GenderFilterType[]
+  ownershipFilter: OwnershipFilterType[]
 }
 
 export type SpeciesFilterMeta = {

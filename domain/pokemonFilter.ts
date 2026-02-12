@@ -43,8 +43,11 @@ export const filterSpecies = (
   species: PokemonSpecies[],
   meta: Map<number, SpeciesFilterMeta>,
   condition: PokemonFilterCondition,
+  // eslint-disable-next-line no-unused-vars
+  getFormsFn?: (speciesId: number) => PokemonForm[],
+  ownedFormIds?: Set<number>,
 ): PokemonSpecies[] => {
-  const { searchText, generations } = condition
+  const { searchText, generations, ownershipFilter } = condition
   const trimmedSearch = searchText.trim()
 
   return species.filter((sp) => {
@@ -59,6 +62,19 @@ export const filterSpecies = (
 
     if (generations.length > 0 && !generations.includes(m.generation)) {
       return false
+    }
+
+    if (ownershipFilter.length > 0 && getFormsFn && ownedFormIds) {
+      const forms = getFormsFn(sp.id)
+      const ownedCount = forms.filter((f) => ownedFormIds.has(f.id)).length
+      const totalCount = forms.length
+
+      if (ownershipFilter.includes('owned') && !ownershipFilter.includes('unowned')) {
+        if (ownedCount !== totalCount) return false
+      }
+      if (ownershipFilter.includes('unowned') && !ownershipFilter.includes('owned')) {
+        if (ownedCount !== 0) return false
+      }
     }
 
     return true
@@ -81,8 +97,9 @@ export const filterForms = (
   // eslint-disable-next-line no-unused-vars
   getSpeciesFn: (speciesId: number) => PokemonSpecies | undefined,
   condition: PokemonFilterCondition,
+  ownedFormIds?: Set<number>,
 ): PokemonForm[] => {
-  const { searchText, generations, regions, specialForms, genderTypes } = condition
+  const { searchText, generations, regions, specialForms, genderTypes, ownershipFilter } = condition
   const trimmedSearch = searchText.trim()
 
   return forms.filter((form) => {
@@ -108,6 +125,18 @@ export const filterForms = (
 
     if (genderTypes.length > 0 && !matchesGenderFilter(form, genderTypes)) {
       return false
+    }
+
+    if (ownershipFilter.length > 0) {
+      const ids = ownedFormIds ?? new Set<number>()
+      const isOwned = ids.has(form.id)
+
+      if (ownershipFilter.includes('owned') && !ownershipFilter.includes('unowned')) {
+        if (!isOwned) return false
+      }
+      if (ownershipFilter.includes('unowned') && !ownershipFilter.includes('owned')) {
+        if (isOwned) return false
+      }
     }
 
     return true

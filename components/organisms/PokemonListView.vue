@@ -35,6 +35,11 @@
           :dex-no="item.dexNo"
           :name="item.name"
           :form-name="item.formName"
+          :owned="item.owned"
+          :owned-count="item.ownedCount"
+          :total-form-count="item.totalFormCount"
+          :clickable="clickable"
+          @click="$emit('card-click', item.id)"
         />
       </div>
     </BaseInfiniteScroll>
@@ -73,6 +78,7 @@ interface Props {
   emptyText?: string
   filteredCount?: number
   totalCount?: number
+  clickable?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -80,6 +86,7 @@ withDefaults(defineProps<Props>(), {
   emptyText: '表示できるポケモンがありません。',
   filteredCount: undefined,
   totalCount: undefined,
+  clickable: false,
 })
 
 const { isVisible, scrollToTop } = useScrollToTop()
@@ -87,6 +94,7 @@ const { isVisible, scrollToTop } = useScrollToTop()
 defineEmits<{
   // eslint-disable-next-line no-unused-vars
   load: [options: { side: InfiniteScrollSide; done: (status: InfiniteScrollStatus) => void }]
+  'card-click': [formId: number]
 }>()
 </script>
 

@@ -98,6 +98,26 @@
           </BaseChipGroup>
         </div>
 
+        <div v-if="showOwnershipFilter" class="pokemon-search-filter__section">
+          <span class="text-caption font-weight-bold">所持状態</span>
+          <BaseChipGroup
+            :model-value="ownershipFilter"
+            multiple
+            column
+            @update:model-value="$emit('update:ownershipFilter', $event)"
+          >
+            <BaseChip
+              v-for="option in ownershipOptions"
+              :key="option.value"
+              :value="option.value"
+              filter
+              size="small"
+            >
+              {{ option.label }}
+            </BaseChip>
+          </BaseChipGroup>
+        </div>
+
         <div class="pokemon-search-filter__actions">
           <BaseButton
             variant="text"
@@ -117,6 +137,7 @@
 import { ref } from 'vue'
 import type { Region } from '../../types/masterData'
 import type { GenderFilterType, SpecialFormType } from '../../types/pokemonFilter'
+import type { OwnershipFilterType } from '../../types/ownership'
 import BaseButton from '../atoms/BaseButton.vue'
 import BaseChip from '../atoms/BaseChip.vue'
 import BaseChipGroup from '../atoms/BaseChipGroup.vue'
@@ -128,12 +149,15 @@ interface Props {
   regions: Region[]
   specialForms: SpecialFormType[]
   genderTypes: GenderFilterType[]
+  ownershipFilter: OwnershipFilterType[]
   isFilterActive: boolean
   showFormFilters?: boolean
+  showOwnershipFilter?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   showFormFilters: false,
+  showOwnershipFilter: false,
 })
 
 defineEmits<{
@@ -142,6 +166,7 @@ defineEmits<{
   'update:regions': [value: Region[]]
   'update:specialForms': [value: SpecialFormType[]]
   'update:genderTypes': [value: GenderFilterType[]]
+  'update:ownershipFilter': [value: OwnershipFilterType[]]
   'reset': []
 }>()
 
@@ -164,6 +189,11 @@ const genderOptions = [
   { value: 'male' as GenderFilterType, label: 'オス' },
   { value: 'female' as GenderFilterType, label: 'メス' },
   { value: 'genderless' as GenderFilterType, label: '性別なし' },
+]
+
+const ownershipOptions = [
+  { value: 'owned' as OwnershipFilterType, label: '所持のみ' },
+  { value: 'unowned' as OwnershipFilterType, label: '未所持のみ' },
 ]
 </script>
 

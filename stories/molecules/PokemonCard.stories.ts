@@ -37,3 +37,51 @@ export const WithLongFormName: Story = {
     }),
   ],
 }
+
+export const Owned: Story = {
+  args: {
+    dexNo: 25,
+    name: 'ピカチュウ',
+    owned: true,
+    clickable: true,
+  },
+}
+
+export const Unowned: Story = {
+  args: {
+    dexNo: 150,
+    name: 'ミュウツー',
+    owned: false,
+    clickable: true,
+  },
+}
+
+export const FullyOwnedSpecies: Story = {
+  args: {
+    dexNo: 3,
+    name: 'フシギバナ',
+    owned: true,
+    ownedCount: 2,
+    totalFormCount: 2,
+  },
+}
+
+export const PartiallyOwnedSpecies: Story = {
+  args: {
+    dexNo: 150,
+    name: 'ミュウツー',
+    owned: false,
+    ownedCount: 1,
+    totalFormCount: 3,
+  },
+}
+
+export const UnownedSpecies: Story = {
+  args: {
+    dexNo: 151,
+    name: 'ミュウ',
+    owned: false,
+    ownedCount: 0,
+    totalFormCount: 1,
+  },
+}

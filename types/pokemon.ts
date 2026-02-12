@@ -3,4 +3,7 @@ export type PokemonListItem = {
   dexNo: number
   name: string
   formName?: string
+  owned?: boolean
+  ownedCount?: number
+  totalFormCount?: number
 }
