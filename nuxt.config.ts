@@ -17,7 +17,7 @@ export default defineNuxtConfig({
         appId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID ?? '',
         measurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? '',
         emulator: {
-          useEmulator: process.env.USE_FIREBASE_EMULATOR === 'true',
+          useEmulator: process.env.USE_FIREBASE_EMULATOR === 'true' && process.env.NODE_ENV !== 'production',
           host: process.env.FIREBASE_EMULATOR_HOST ?? '127.0.0.1',
           authPort: Number(process.env.FIREBASE_AUTH_EMULATOR_PORT ?? '9099'),
           firestorePort: Number(process.env.FIRESTORE_EMULATOR_PORT ?? '8080'),

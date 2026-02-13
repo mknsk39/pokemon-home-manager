@@ -8,6 +8,8 @@ services:
       - node_modules:/workspace/node_modules
       - pnpm-store:/workspace/.pnpm-store
       - nuxt-cache:/workspace/.nuxt
+      - firebase-config:/root/.config/configstore
+      - firebase-cache:/root/.cache/firebase
     ports:
       - "3000:3000"     # Nuxt dev server
       - "24678:24678"   # Vite HMR
@@ -23,3 +25,5 @@ volumes:
   node_modules:
   pnpm-store:
   nuxt-cache:
+  firebase-config:
+  firebase-cache:

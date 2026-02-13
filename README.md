@@ -71,6 +71,37 @@ pnpm emulator
 `.env.example` をコピーして `.env` を作成し、Firebase の接続情報を設定してください。
 詳細は `.env.example` 内のコメントを参照してください。
 
+## 🚀 デプロイ
+
+Firebase Hosting へのデプロイ手順です。
+
+### 前提条件
+
+Firebase Console で以下を事前に設定してください。
+
+1. **Authentication** → **Sign-in method** で **Google** プロバイダを有効化
+2. **Firestore Database** を作成済みであること
+
+### デプロイ手順
+
+```bash
+# 1. Firebase にログイン（初回 or セッション切れ時）
+pnpm firebase login --no-localhost
+
+# 2. プロダクションビルド
+pnpm build
+
+# 3. Hosting と Firestore ルールをデプロイ
+pnpm firebase deploy
+```
+
+> [!NOTE]
+> ビルド時は `NODE_ENV=production` が自動設定されるため、`USE_FIREBASE_EMULATOR=true` が `.env` に設定されていてもエミュレーターには接続しません。
+
+> [!TIP]
+> Docker 環境から実行する場合は `docker compose exec app` を先頭に付けてください。
+> Firebase の認証情報は named volume で永続化されているため、コンテナの再ビルドでログインが切れることはありません。
+
 ## 📚 ドキュメント
 
 | ドキュメント | 内容 |

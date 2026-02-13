@@ -12,7 +12,8 @@
     "storybook": "NUXT_STORYBOOK=1 storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest run",
-    "emulator": "firebase emulators:start --only auth,firestore"
+    "emulator": "firebase emulators:start --only auth,firestore",
+    "deploy": "nuxt generate && firebase deploy --only hosting"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",

@@ -1,4 +1,18 @@
 {
+  "hosting": {
+    "public": ".output/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/200.html"
+      }
+    ]
+  },
   "emulators": {
     "auth": {
       "port": 9099,
