@@ -22,7 +22,7 @@
       </BaseButton>
     </div>
 
-    <v-expand-transition>
+    <BaseExpandTransition>
       <div v-show="showPanel" class="pokemon-search-filter__panel">
         <div class="pokemon-search-filter__section">
           <span class="text-caption font-weight-bold">世代</span>
@@ -30,7 +30,7 @@
             :model-value="generations"
             multiple
             column
-            @update:model-value="$emit('update:generations', $event)"
+            @update:model-value="$emit('update:generations', $event as number[])"
           >
             <BaseChip v-for="gen in 9" :key="gen" :value="gen" filter size="small">
               {{ gen }}
@@ -44,7 +44,7 @@
             :model-value="regions"
             multiple
             column
-            @update:model-value="$emit('update:regions', $event)"
+            @update:model-value="$emit('update:regions', $event as Region[])"
           >
             <BaseChip
               v-for="region in regionOptions"
@@ -64,7 +64,7 @@
             :model-value="specialForms"
             multiple
             column
-            @update:model-value="$emit('update:specialForms', $event)"
+            @update:model-value="$emit('update:specialForms', $event as SpecialFormType[])"
           >
             <BaseChip
               v-for="form in specialFormOptions"
@@ -84,7 +84,7 @@
             :model-value="genderTypes"
             multiple
             column
-            @update:model-value="$emit('update:genderTypes', $event)"
+            @update:model-value="$emit('update:genderTypes', $event as GenderFilterType[])"
           >
             <BaseChip
               v-for="gender in genderOptions"
@@ -104,7 +104,7 @@
             :model-value="ownershipFilter"
             multiple
             column
-            @update:model-value="$emit('update:ownershipFilter', $event)"
+            @update:model-value="$emit('update:ownershipFilter', $event as OwnershipFilterType[])"
           >
             <BaseChip
               v-for="option in ownershipOptions"
@@ -129,19 +129,14 @@
           </BaseButton>
         </div>
       </div>
-    </v-expand-transition>
+    </BaseExpandTransition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { Region } from '../../types/masterData'
 import type { GenderFilterType, SpecialFormType } from '../../types/pokemonFilter'
 import type { OwnershipFilterType } from '../../types/ownership'
-import BaseButton from '../atoms/BaseButton.vue'
-import BaseChip from '../atoms/BaseChip.vue'
-import BaseChipGroup from '../atoms/BaseChipGroup.vue'
-import BaseTextField from '../atoms/BaseTextField.vue'
 
 interface Props {
   searchText: string

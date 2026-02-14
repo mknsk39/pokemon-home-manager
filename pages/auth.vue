@@ -9,11 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
-import AuthLoginCard from '../components/organisms/AuthLoginCard.vue'
-import BaseContainer from '../components/atoms/BaseContainer.vue'
-import { useAuthStore } from '../stores/auth'
-
 const authStore = useAuthStore()
 
 onMounted(() => {

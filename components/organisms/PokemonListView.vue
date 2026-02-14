@@ -62,15 +62,7 @@
 
 <script setup lang="ts">
 import type { PokemonListItem } from '../../types/pokemon'
-import { useScrollToTop } from '../../composables/useScrollToTop'
-import BaseButton from '../atoms/BaseButton.vue'
-import BaseContainer from '../atoms/BaseContainer.vue'
-import BaseIcon from '../atoms/BaseIcon.vue'
-import BaseInfiniteScroll, {
-  type InfiniteScrollSide,
-  type InfiniteScrollStatus,
-} from '../atoms/BaseInfiniteScroll.vue'
-import PokemonCard from '../molecules/PokemonCard.vue'
+import type { InfiniteScrollSide, InfiniteScrollStatus } from '../atoms/BaseInfiniteScroll.vue'
 
 interface Props {
   items: PokemonListItem[]

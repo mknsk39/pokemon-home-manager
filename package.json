@@ -9,7 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "storybook": "NUXT_STORYBOOK=1 storybook dev -p 6006",
+    "storybook": "NUXT_STORYBOOK=1 storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "test": "vitest run",
     "emulator": "firebase emulators:start --only auth,firestore",

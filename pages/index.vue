@@ -41,17 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
-import BaseBtnToggle from '../components/atoms/BaseBtnToggle.vue'
-import BaseButton from '../components/atoms/BaseButton.vue'
 import type { InfiniteScrollStatus } from '../components/atoms/BaseInfiniteScroll.vue'
-import PokemonListView from '../components/organisms/PokemonListView.vue'
-import PokemonSearchFilter from '../components/molecules/PokemonSearchFilter.vue'
-import { useMasterData } from '../composables/useMasterData'
-import { usePokemonFilter } from '../composables/usePokemonFilter'
-import { useAuthStore } from '../stores/auth'
-import { useOwnershipStore } from '../stores/ownership'
 
 type ViewMode = 'species' | 'forms'
 
