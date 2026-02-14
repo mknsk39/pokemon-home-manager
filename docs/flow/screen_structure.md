@@ -142,9 +142,27 @@
 - フィルタ：ソフト別、姿違いのみ
 - グリッド/リスト表示の切り替え
 
-### ダッシュボード (Rotom Analytics) ※未実装
+### ダッシュボード (`/dashboard`)
 
-- HOME 図鑑全体の達成率（％）をドーナツチャートで表示
+- パス: `/dashboard`
+- レイアウト: 共通ヘッダーあり
+- コンポーネント: `DashboardView` (Organism) + `AchievementSummary` (Molecule) + `DonutChart` (Atom)
+
+#### 全体達成率
+
+- すがた（フォーム）単位で達成率を計算: 所持フォーム数 / 全フォーム数 (1591)
+- SVG ベースのドーナツチャートで可視化（ゼロ依存）
+- チャート中央に達成率（%、小数点1桁）を表示
+- チャート下部に「X / Y 匹」テキストを表示
+
+#### ナビゲーション
+
+- AppHeader のブランド領域右側にアイコンボタンを配置
+- Home (`/`) にいる時: `mdi-chart-donut` アイコンで `/dashboard` に遷移
+- Dashboard (`/dashboard`) にいる時: `mdi-format-list-bulleted` アイコンで `/` に遷移
+
+#### 将来拡張（未実装）
+
 - ソフト別達成率をプログレスバーで一覧表示
 - 「Rotom Report（SNS 共有用画像）」の生成機能
 

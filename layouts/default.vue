@@ -5,7 +5,9 @@
       :profile="authStore.profile"
       :logout-loading="logoutLoading"
       :error="authStore.error"
+      :current-path="route.path"
       @logout="handleLogout"
+      @navigate="navigateTo($event)"
     />
     <main class="app-layout__main">
       <slot />

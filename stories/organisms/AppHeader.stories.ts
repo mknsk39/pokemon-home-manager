@@ -7,6 +7,7 @@ const meta: Meta<typeof AppHeader> = {
   tags: ['autodocs'],
   argTypes: {
     onLogout: { action: 'logout' },
+    onNavigate: { action: 'navigate' },
   },
 }
 
@@ -40,5 +41,23 @@ export const LogoutLoading: Story = {
     profile: sampleProfile,
     logoutLoading: true,
     error: null,
+  },
+}
+
+export const WithNavigation: Story = {
+  args: {
+    profile: sampleProfile,
+    logoutLoading: false,
+    error: null,
+    currentPath: '/',
+  },
+}
+
+export const OnDashboard: Story = {
+  args: {
+    profile: sampleProfile,
+    logoutLoading: false,
+    error: null,
+    currentPath: '/dashboard',
   },
 }

@@ -7,10 +7,20 @@
       </div>
 
       <div class="app-header__actions">
+        <BaseButton
+          variant="text"
+          icon
+          size="small"
+          color="primary"
+          class="mr-1"
+          @click="$emit('navigate', navigationTarget)"
+        >
+          <BaseIcon :icon="navigationIcon" size="20" />
+        </BaseButton>
         <BaseMenu v-if="profile" v-model="menuOpen">
-          <template #activator="{ props }">
+          <template #activator="{ props: activatorProps }">
             <BaseButton
-              v-bind="props"
+              v-bind="activatorProps"
               variant="text"
               :disabled="logoutLoading"
               prepend-icon="mdi-account-circle"
@@ -72,15 +82,22 @@ interface Props {
   profile: UserProfile | null
   logoutLoading: boolean
   error?: string | null
+  currentPath?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   error: null,
+  currentPath: '/',
 })
 
 const emit = defineEmits<{
   logout: []
+  navigate: [path: string]
 }>()
+
+const isDashboard = computed(() => props.currentPath === '/dashboard')
+const navigationIcon = computed(() => isDashboard.value ? 'mdi-format-list-bulleted' : 'mdi-chart-donut')
+const navigationTarget = computed(() => isDashboard.value ? '/' : '/dashboard')
 
 const menuOpen = ref(false)
 
