@@ -21,10 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from '../atoms/BaseButton.vue'
-import BaseCard from '../atoms/BaseCard.vue'
-import BaseIcon from '../atoms/BaseIcon.vue'
-
 interface Props {
   loading?: boolean
   error?: string | null

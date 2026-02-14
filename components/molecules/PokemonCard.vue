@@ -40,11 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import BaseCard from '../atoms/BaseCard.vue'
-import BaseIcon from '../atoms/BaseIcon.vue'
-import BaseTooltip from '../atoms/BaseTooltip.vue'
-
 interface Props {
   dexNo: number
   name: string

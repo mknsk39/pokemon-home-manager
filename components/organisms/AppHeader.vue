@@ -66,12 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { UserProfile } from '../../types/auth'
-import BaseButton from '../atoms/BaseButton.vue'
-import BaseCard from '../atoms/BaseCard.vue'
-import BaseIcon from '../atoms/BaseIcon.vue'
-import BaseMenu from '../atoms/BaseMenu.vue'
 
 interface Props {
   profile: UserProfile | null
